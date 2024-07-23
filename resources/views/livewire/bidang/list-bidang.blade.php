@@ -9,13 +9,22 @@
                     <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
                     <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon-search31" />
                 </div>
-
-
-
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-between pb-2">
+        <div class="btn-group" role="group" aria-label="Second group">
+            <a href="{{route('bidang.create.bidang')}}" type="button" class="btn btn-primary btn-sm">
+                <i class="bx bx-folder-plus"></i>
+                <span style="font-size: 13px;"> Tambah Bidang</span>
+            </a>
+        </div>
+        <div class="">
+            {{ $listBidang->links('vendor.pagination.simple-bootstrap-5') }}
 
+        </div>
+
+    </div>
     <div class="card mb-3">
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
@@ -46,7 +55,6 @@
             </table>
         </div>
     </div>
-    {{ $listBidang->links() }}
 
 
     <!-- Modal -->

@@ -39,6 +39,19 @@
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     @stack('style')
     <style>
+        .pagination .page-link {
+            background-color: #696cff;
+            /* Ganti dengan warna primary yang sesuai */
+            color: #fff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #696cff;
+            background-color: rgba(105, 108, 255, 0.16);
+
+            /* Warna teks putih */
+        }
+
         /* Activity */
         .activity {
             font-size: 14px;

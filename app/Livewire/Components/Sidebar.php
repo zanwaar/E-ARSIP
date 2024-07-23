@@ -28,7 +28,6 @@ class Sidebar extends Component
             if ($user->jabatans->alias == 'Staff') {
                 $disposisi = Disposisi::with(['suratMasuk.dokuments'])
                     ->where('bidang_id', $user->jabatans->bidang->id)
-                    ->where('is_read', false)
                     ->count();
             } else {
                 $disposisi = Disposisi::with(['suratMasuk.dokuments'])

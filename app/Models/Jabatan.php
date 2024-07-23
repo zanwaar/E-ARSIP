@@ -9,10 +9,10 @@ class Jabatan extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    const KADIS = 'Kadis';
-    const KABIB = 'Kabib';
-    const KASIH = 'Kasi';
-    const STAFF = 'Staff';
+    const KADIS = 'KADIS';
+    const KABIB = 'KABIB';
+    const KASIH = 'KASI';
+    const STAFF = 'STAFF';
 
     public function getStatusBadgeAttribute()
     {

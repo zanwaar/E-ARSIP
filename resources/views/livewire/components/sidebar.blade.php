@@ -25,16 +25,16 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Kelola Pengguna</span>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('pengguna*') ? 'active' : '' }}">
-            <a href="{{url('pengguna/list')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <div data-i18n="Analytics">Pengguna</div>
-            </a>
-        </li>
         <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('bidang*') ? 'active' : '' }}">
             <a href="{{url('bidang/list')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-git-merge"></i>
                 <div data-i18n="Kelola Bidang">Kelola Bidang</div>
+            </a>
+        </li>
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('pengguna*') ? 'active' : '' }}">
+            <a href="{{url('pengguna/list')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                <div data-i18n="Analytics">Daftar Pengguna</div>
             </a>
         </li>
         @endrole

@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1">
     <div class="bg-white my-3 rounded">
         <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row px-4 py-2 ">
-            <h4 class="fw-bold py-3 mb-2"><span class="text-muted fw-light">Bidang /</span> List Bidang</h4>
+            <h4 class="fw-bold py-3 mb-2"><span class="text-muted fw-light">Pengguna /</span> List Pengguna</h4>
             <div class="">
                 <!-- <a href="" class="btn btn-primary">Tambah</a> -->
                 <!-- Button trigger modal -->
@@ -15,6 +15,16 @@
             </div>
         </div>
     </div>
+    <div class="d-flex mb-3">
+        <div class="btn-group  " role="group" aria-label="Basic example">
+            <button type="button" class="btn-sm {{$selectedJabatan == 'ALL' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('ALL')">ALL</button>
+            <button type="button" class="btn-sm {{$selectedJabatan == 'KADIS' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('KADIS')">KADIS</button>
+            <button type="button" class="btn-sm {{$selectedJabatan == 'KABIB' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('KABIB')">KABIB</button>
+            <button type="button" class="btn-sm {{$selectedJabatan == 'STAFF' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('STAFF')">STAFF</button>
+        </div>
+    </div>
+
+
 
     <div class="card mb-3">
         <div class="table-responsive text-nowrap">

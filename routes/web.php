@@ -5,6 +5,7 @@ use App\Livewire\Beranda;
 use App\Livewire\Bidang\Detail;
 use App\Livewire\Bidang\Index;
 use App\Livewire\Bidang\ListBidang;
+use App\Livewire\Bidang\TambahBidang;
 use App\Livewire\Counter;
 use App\Livewire\Dokument\Disposisi;
 use App\Livewire\Dokument\Lainnya;
@@ -42,7 +43,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/lainnya', Lainnya::class)->name('lainnya');
     });
     Route::prefix('bidang')->as('bidang.')->group(function () {
-        Route::get('/list', ListBidang::class);
+        Route::get('/list', ListBidang::class)->name('index');
+        Route::get('/create', TambahBidang::class)->name('create.bidang');
         Route::get('/{id}/detail', Detail::class);
     });
     Route::prefix('jabatan')->as('jabatan.')->group(function () {

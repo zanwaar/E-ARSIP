@@ -41,9 +41,10 @@ class ListBidang extends Component
     public function getBidangProperty()
     {
         return Bidang::with(['kepalaBidang.user', 'kepalaSeksi.user', 'staff'])
+            ->where('name', '!=', 'Kepala Dinas')
             ->where('name', 'like', '%' . $this->searchTerm . '%')
             ->latest()
-            ->paginate(5);
+            ->paginate(10);
     }
     public function render()
     {
