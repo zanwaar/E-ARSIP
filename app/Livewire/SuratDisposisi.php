@@ -40,7 +40,7 @@ class SuratDisposisi extends Component
             $authRole = $authUser->jabatans->alias ?? null;
 
             // Cek jabatan pengguna
-            if ($authRole  == 'Kasi') {
+            if ($authRole  == 'KASI') {
                 // Jika jabatan adalah 'Kasi', masukkan bidang_id
                 Disposisi::create([
                     'surat_masuk_id' => $this->idSuratMasuk,
@@ -76,27 +76,25 @@ class SuratDisposisi extends Component
 
     public function getDisposisisProperty()
     {
-        // $user = User::with('jabatans.bidang')->where('id', auth()->user()->id)->first();
         $user = Auth::user();
-        // $bidang = 0;
-        // dd($user->jabatans->bidang->id);
-
-
 
         if ($user->jabatans->alias == 'Staff') {
             $disposisi = Disposisi::with(['suratMasuk.dokuments'])
                 ->where('bidang_id', $user->jabatans->bidang->id)
+                ->orderBy('is_read', 'asc') // 'false' first
                 ->latest()
                 ->paginate(5);
         } else {
             $disposisi = Disposisi::with(['suratMasuk.dokuments'])
                 ->where('user_id', $user->id)
+                ->orderBy('is_read', 'asc') // 'false' first
                 ->latest()
                 ->paginate(5);
         }
 
         return $disposisi;
     }
+
     public function render()
     {
         return view('livewire.surat-disposisi', ['suratDisposisi' => $this->disposisis]);

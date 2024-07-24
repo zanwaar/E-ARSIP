@@ -2,26 +2,23 @@
 
 namespace App\Livewire\Dokument;
 
-use App\Models\Disposisi as ModelsDisposisi;
 use App\Models\FileDokument;
-use App\Models\SuratMasuk;
+use App\Models\SuratKeluar;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\WithPagination;
 
-class Disposisi extends Component
+class DetailSuratKeluar extends Component
 {
-    use WithPagination;
     use LivewireAlert;
     public $idfile;
     public $surat;
     public $nomorSurat;
-    public $pengirim;
+    public $penerima;
     public $perihal;
-    public $tanggal_masuk;
+    public $tanggal_keluar;
     public array  $files = [];
     public function mount($surat)
     {
@@ -31,57 +28,6 @@ class Disposisi extends Component
     {
         $this->dispatch('show-modal-add');
     }
-    public function saves()
-    {
-        $this->validate([
-            'pengirim' => 'required|string|max:255',
-            'tanggal_masuk' => 'required|date',
-            'perihal' => 'required|string',
-        ]);
-        DB::beginTransaction();
-
-        try {
-            SuratMasuk::where('id', $this->surat)->update([
-                'nomor_surat' => $this->nomorSurat,
-                'pengirim' => $this->pengirim,
-                'tanggal_masuk' => $this->tanggal_masuk,
-                'perihal' => $this->perihal,
-            ]);
-
-            foreach ($this->files as $file) {
-                // $fileName = Storage::putFile('files', new File($file['path']));
-                $fileName = $this->nomorSurat . '_' . $file['name'];
-                $size = floor($file['size'] / 1024);
-                Storage::putFileAs('files/surat-masuk', new File($file['path']), $fileName);
-                FileDokument::create([
-                    'dokument_id' => $this->surat,
-                    'dokument' => 'SURAT MASUK',
-                    'file' => $fileName,
-                    'size' =>  $size . ' KB',
-                ]);
-            }
-            DB::commit();
-            $this->alert('success', 'Surat Masuk saved successfully.', [
-                'position' => 'top',
-                'timer' => 3000,
-                'toast' => true,
-                'timerProgressBar' => true,
-            ]);
-            $this->dispatch('hide-form');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            dd($e);
-            session()->flash('error', 'Failed to save Surat Masuk.');
-            $this->dispatch('hide-form');
-            $this->alert('success', 'Failed to save Surat Masuk.', [
-                'position' => 'top',
-                'timer' => 3000,
-                'toast' => true,
-                'timerProgressBar' => true,
-            ]);
-        }
-    }
-
     public function showDelete($id)
     {
         $this->idfile = $id;
@@ -98,18 +44,70 @@ class Disposisi extends Component
             'timerProgressBar' => true,
         ]);
     }
-    public function getDisposisiProperty()
+    public function saves()
     {
-        return SuratMasuk::with(['disposisis.user.jabatans', 'disposisis.bidang', 'dokuments'])
+        $this->validate([
+            'penerima' => 'required|string|max:255',
+            'tanggal_keluar' => 'required|date',
+            'perihal' => 'required|string',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            SuratKeluar::where('id', $this->surat)->update([
+                'nomor_surat' => $this->nomorSurat,
+                'penerima' => $this->penerima,
+                'tanggal_keluar' => $this->tanggal_keluar,
+                'perihal' => $this->perihal,
+            ]);
+
+            foreach ($this->files as $file) {
+                // $fileName = Storage::putFile('files', new File($file['path']));
+                $fileName = $this->nomorSurat . '_' . $file['name'];
+                $size = floor($file['size'] / 1024);
+                Storage::putFileAs('files/surat-keluar', new File($file['path']), $fileName);
+                FileDokument::create([
+                    'dokument_id' => $this->surat,
+                    'dokument' => 'SURAT KELUAR',
+                    'file' => $fileName,
+                    'size' =>  $size . ' KB',
+                ]);
+            }
+
+            DB::commit();
+            $this->alert('success', 'Surat Keluar saved successfully.', [
+                'position' => 'top',
+                'timer' => 3000,
+                'toast' => true,
+                'timerProgressBar' => true,
+            ]);
+            // $this->reset();
+            $this->dispatch('hide-form');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+            $this->dispatch('hide-form');
+            $this->alert('success', 'Failed to save Surat Keluar.', [
+                'position' => 'top',
+                'timer' => 3000,
+                'toast' => true,
+                'timerProgressBar' => true,
+            ]);
+        }
+    }
+    public function getSuratKeluarProperty()
+    {
+        return SuratKeluar::with(['dokuments'])
             ->where('id', $this->surat)
             ->firstOrFail();
     }
     public function render()
     {
-        $this->nomorSurat = $this->disposisi->nomor_surat;
-        $this->pengirim = $this->disposisi->pengirim;
-        $this->perihal = $this->disposisi->perihal;
-        $this->tanggal_masuk = $this->disposisi->tanggal_masuk;
-        return view('livewire.dokument.disposisi', ['suratDisposisi' => $this->disposisi]);
+        $this->nomorSurat = $this->surat_keluar->nomor_surat;
+        $this->penerima = $this->surat_keluar->penerima;
+        $this->perihal = $this->surat_keluar->perihal;
+        $this->tanggal_keluar = $this->surat_keluar->tanggal_keluar;
+        return view('livewire.dokument.detail-surat-keluar', ['suratkeluar' => $this->surat_keluar]);
     }
 }

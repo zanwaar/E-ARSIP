@@ -112,14 +112,14 @@
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none container mt-2 ">
+                <div class="layout-menu-toggle navbar-nav center mx-3 mx-lg-4 d-xl-none  mt-2">
                     <div class="card">
                         <a class="nav-item nav-link px-0 me-xl-4  d-flex w-100 flex-wrap align-items-center px-2" href="javascript:void(0)">
                             <i class="bx bx-menu bx-sm"></i> <span>E-ARSIP </span>
                         </a>
                     </div>
                 </div>
+
 
                 <!-- / Navbar -->
 

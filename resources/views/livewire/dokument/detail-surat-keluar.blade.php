@@ -1,13 +1,13 @@
 <div class="container-xxl flex-grow-1">
     <div class="bg-white my-3 rounded">
         <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row px-4 py-2 ">
-            <h4 class="fw-bold py-3 mb-2"><span class="text-muted fw-light">Dokument /</span> Surat Masuk </h4>
+            <h4 class="fw-bold py-3 mb-2"><span class="text-muted fw-light">Dokument /</span> Surat Keluar </h4>
             @role('staffAdmin')
             <div class="">
                 <div class="btn-group" role="group" aria-label="Second group">
                     <button wire:click="show()" type="button" class="btn btn-dark">
                         <!-- <i class="bx bx-folder-plus"></i> -->
-                        <span style="font-size: 13px;">Edit Surat Masuk</span>
+                        <span style="font-size: 13px;">Edit Surat Keluar</span>
                     </button>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                 <div class="card-title d-flex flex-row">
                     <div class="d-inline-block mx-2  text-black">
                         <small class="d-block text-secondary">Nomor Surat</small>
-                        {{$suratDisposisi->nomor_surat}}
+                        {{$suratkeluar->nomor_surat}}
                     </div>
                 </div>
                 <div class="card-title d-flex flex-row">
                     <div class="d-inline-block mx-2 text-end text-black">
                         <small class="d-block text-secondary">Tanggal Dokument</small>
-                        {{ $suratDisposisi->tanggal_masuk }}
+                        {{ $suratkeluar->tanggal_keluar }}
                     </div>
                 </div>
             </div>
@@ -35,21 +35,24 @@
                 <div class="card-title d-flex flex-row">
                     <div class="d-inline-block mx-2 text-black">
                         <small class="d-block text-secondary">Perihal</small>
-                        {{$suratDisposisi->perihal}}
+                        {{$suratkeluar->perihal}}
                     </div>
+
                 </div>
                 <div class="card-title d-flex flex-row">
                     <div class="d-inline-block mx-2 text-end text-black">
-                        <small class="d-block text-secondary">Pengirim</small>
-                        {{ $suratDisposisi->pengirim }}
+                        <small class="d-block text-secondary">Penerima</small>
+                        {{$suratkeluar->penerima}}
                     </div>
+
                 </div>
+
 
             </div>
             <div class="card-title d-flex flex-row">
                 <div class="d-flex flex-column mx-2 w-100  text-black">
                     <small class="d-block text-secondary">Dokument File Surat Masuk</small>
-                    @foreach ($suratDisposisi->dokuments as $dokument)
+                    @foreach ($suratkeluar->dokuments as $dokument)
                     <div class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-2">
                         <!--[if BLOCK]><![endif]-->
                         <div class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700">
@@ -80,26 +83,9 @@
                     @endforeach
                 </div>
             </div>
-            <hr>
-            <div class="mx-2">
-                <h5 class="card-title ">Disposisi Activity | <span class="text-primary">{{$suratDisposisi->disposisis->count() > 1 ? $suratDisposisi->disposisis[1]->user->jabatans->bidang->name  : ''}}</span> </h5>
-                <div class="activity ">
-                    @foreach ($suratDisposisi->disposisis as $disposisi)
-                    <div class="activity-item d-flex">
-                        <div class="activite-label">{{ $disposisi->formatted_created_at }}</div>
-                        <i class='bx bxs-circle activity-badge text-{{$disposisi->user?->jabatans->status_badge}} align-self-start'></i>
-                        <div class="activity-content">
 
-                            <span class="badge bg-label-{{$disposisi->user?->jabatans->status_badge ?? 'success' }} me-1">{{ $disposisi->user?->jabatans->alias ?? 'STAFF'   }}</span> | {{ $disposisi->user ? $disposisi->user?->name : $disposisi->bidang->name }}
-                            <p>{{ $disposisi->isi_disposisi }}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </div>
-    @role('staffAdmin')
     <div class="modal fade" id="file" tabindex="-1" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -130,7 +116,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Surat Masuk</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Surat Keluar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -142,18 +128,18 @@
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
-                            <label for="pengirim" class="form-label">Pengirim</label>
-                            <input type="text" id="pengirim" wire:model="pengirim" class="form-control @error('pengirim') is-invalid @enderror" placeholder="Masukan Nama" />
-                            @error('pengirim')
+                            <label for="penerima" class="form-label">Penerima</label>
+                            <input type="text" id="penerima" wire:model="penerima" class="form-control @error('penerima') is-invalid @enderror" placeholder="Masukan Nama" />
+                            @error('penerima')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
                         <div class="form-group col mb-0">
-                            <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
-                            <input type="date" id="tanggal_masuk" wire:model="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror" placeholder="DD / MM / YY" />
-                            @error('tanggal_masuk')
+                            <label for="tanggal_keluar" class="form-label">Tanggal Keluar</label>
+                            <input type="date" id="tanggal_keluar" wire:model="tanggal_keluar" class="form-control @error('tanggal_keluar') is-invalid @enderror" placeholder="DD / MM / YY" />
+                            @error('tanggal_keluar')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -178,10 +164,7 @@
             </div>
         </div>
     </div>
-    @endrole
-
 </div>
-@role('staffAdmin')
 @push('scripts')
 <script>
     var modal = new bootstrap.Modal(document.getElementById('add'), {
@@ -204,4 +187,3 @@
     });
 </script>
 @endpush
-@endrole

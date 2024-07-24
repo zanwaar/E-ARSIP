@@ -5,7 +5,7 @@
             <div class="d-flex align-items-center justify-content-between row">
                 <div class="col-sm-9">
                     <div class="card-body ">
-                        <h4 class="card-title text-primary">Selamat Siang, {{auth()->user()->getRoleNames()}}</h4>
+                        <h4 class="card-title text-primary">Selamat Siang, {{auth()->user()->name}}</h4>
                         <p class="fw-bold">
                             Kamis, 11 Juli 2024
                         </p>

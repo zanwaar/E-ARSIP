@@ -16,33 +16,32 @@ class FileUploadController extends Controller
         $query = $request->input('q');
         $authUser = auth()->user();
         $authRole = $authUser->jabatans->alias ?? null;
+        $authBidangId = $authUser->jabatans->bidang_id ?? null;
 
         $usersQuery = User::with('jabatans.bidang')
             ->where('name', 'like', '%' . $query . '%');
 
-        if ($authRole === 'Kadis') {
+        if ($authRole === 'KADIS') {
             $usersQuery->whereHas('jabatans', function ($q) {
-                $q->where('alias', 'Kabib');
+                $q->where('alias', 'KABIB');
             });
-        } elseif ($authRole === 'Kabib') {
-            $usersQuery->whereHas('jabatans', function ($q) {
-                $q->where('alias', 'Kasi');
+            $usersQuery->take(4);
+        } elseif ($authRole === 'KABIB') {
+            $usersQuery->whereHas('jabatans', function ($q) use ($authBidangId) {
+                $q->where('alias', 'KASI')
+                    ->where('bidang_id', $authBidangId);
             });
         } else {
-            // Jika jabatan adalah 'Staff', ambil satu pengguna saja
-            $usersQuery->whereHas('jabatans', function ($q) {
-                $q->where('alias', 'Staff');
+            $usersQuery->whereHas('jabatans', function ($q) use ($authBidangId) {
+                $q->where('alias', 'STAFFBAGIAN')
+                    ->where('bidang_id', $authBidangId);
             })->take(1);
         }
 
-        // Jika bukan 'Staff', ambil empat pengguna
-        if ($authRole !== 'Kasi') {
-            $usersQuery->take(4);
-        }
-
         $users = $usersQuery->get();
+
         $responseData = $users->map(function ($user) use ($authRole) {
-            if ($authRole !== 'Kasi') {
+            if ($authRole != 'KASI') {
                 return [
                     'id' => $user->id,
                     'name' => $user->jabatans->name . ' ' . $user->jabatans->bidang->name . ' ( ' . $user->name . ' ) ',
@@ -65,7 +64,14 @@ class FileUploadController extends Controller
         // $filePath = storage_path('app/pdf/' . $file);
         $filePath = FileDokument::where('file', $file)
             ->firstOrFail();
-        $filePath = 'files/' . $filePath->file;
+
+        if ($filePath->dokument == 'SURAT KELUAR') {
+            $filePath = 'files/surat-keluar/' . $filePath->file;
+        } else {
+            $filePath = 'files/surat-masuk/' . $filePath->file;
+        }
+
+
 
         if (!Storage::disk('local')->exists($filePath)) {
             abort(404, 'File not found');

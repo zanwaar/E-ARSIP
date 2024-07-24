@@ -52,7 +52,7 @@ class SuratMasuk extends Component
                 // $fileName = Storage::putFile('files', new File($file['path']));
                 $fileName = $this->nomorSurat . '_' . $file['name'];
                 $size = floor($file['size'] / 1024);
-                Storage::putFileAs('files', new File($file['path']), $fileName);
+                Storage::putFileAs('files/surat-masuk', new File($file['path']), $fileName);
                 FileDokument::create([
                     'dokument_id' => $suratMasuk->id,
                     'dokument' => 'SURAT MASUK',
@@ -87,7 +87,12 @@ class SuratMasuk extends Component
     }
     public function getSuratMasukProperty()
     {
-        return ModelsSuratMasuk::where('nomor_surat', 'like', '%' . $this->searchTerm . '%')
+        return ModelsSuratMasuk::where(function ($query) {
+            $query->where('nomor_surat', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('pengirim', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('perihal', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('tanggal_masuk', 'like', '%' . $this->searchTerm . '%');
+        })
             ->latest()
             ->paginate(10);
     }

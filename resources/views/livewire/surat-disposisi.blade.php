@@ -48,7 +48,7 @@
                     </div>
 
                     @else
-                    <a class="btn btn-dark" href="{{url('dokument/' .$surat->suratMasuk->id .'/disposisi')}}"><i class='bx bx-mail-send me-2'></i>Traking Surat Disposisi</a>
+                    <a class="btn btn-dark" href="{{url('surat-disposisi/' .$surat->suratMasuk->id .'/disposisi')}}"><i class='bx bx-mail-send me-2'></i>Traking Surat Disposisi</a>
 
                     @endif
                 </div>

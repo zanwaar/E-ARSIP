@@ -7,6 +7,7 @@ use App\Livewire\Bidang\Index;
 use App\Livewire\Bidang\ListBidang;
 use App\Livewire\Bidang\TambahBidang;
 use App\Livewire\Counter;
+use App\Livewire\Dokument\DetailSuratKeluar;
 use App\Livewire\Dokument\Disposisi;
 use App\Livewire\Dokument\Lainnya;
 use App\Livewire\Dokument\SuratKeluar;
@@ -14,6 +15,8 @@ use App\Livewire\Dokument\SuratMasuk;
 use App\Livewire\Dokument\SuratMasukAdd;
 use App\Livewire\Jabatan\ListJabatan;
 use App\Livewire\Pengguna\LsitPengguna;
+use App\Livewire\Pengguna\Password;
+use App\Livewire\Pengguna\Profile;
 use App\Livewire\SuratDisposisi;
 use Illuminate\Support\Facades\Route;
 
@@ -32,12 +35,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', Beranda::class)->name('home');
     Route::get('/surat-disposisi', SuratDisposisi::class)->name('surat.disposisi');
     Route::get('/surat-disposisi/{surat}/disposisi', Disposisi::class);
+    Route::get('/surat/{surat}/surat-keluar', DetailSuratKeluar::class)->name('detail.suratKeluar');
     Route::post('/upload', [FileUploadController::class, 'upload']);
     Route::get('/Dokument', [FileUploadController::class, 'getPdf'])->name('getPdf');
     Route::post('/Dokument', [FileUploadController::class, 'getPdf'])->name('getPdf');
     Route::get('/fetch', [FileUploadController::class, 'fetch'])->name('fetch');
     Route::prefix('dokument')->as('dokument.')->group(function () {
-        Route::get('/surat-masuk', SuratMasuk::class)->name('surat-masuk')->middleware('role:staffAdmin');
         Route::get('/surat-masuk', SuratMasuk::class)->name('surat-masuk')->middleware('role:staffAdmin');
         Route::get('/surat-keluar', SuratKeluar::class)->name('surat-keluar');
         Route::get('/lainnya', Lainnya::class)->name('lainnya');
@@ -51,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/list', ListJabatan::class);
     });
     Route::prefix('pengguna')->as('pengguna.')->group(function () {
-        Route::get('/list', LsitPengguna::class);
+        Route::get('/list', LsitPengguna::class)->name('listpengguna');
     });
+    Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/password', Password::class)->name('password');
 });

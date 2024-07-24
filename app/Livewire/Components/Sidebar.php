@@ -21,6 +21,10 @@ class Sidebar extends Component
         $this->updateCount();
         $this->activeRoute = \Illuminate\Support\Facades\Route::currentRouteName();
     }
+    public function log()
+    {
+        $this->dispatch('log');
+    }
     public function updateCount()
     {
         $user = Auth::user();

@@ -1,28 +1,35 @@
 <div class="container-xxl flex-grow-1">
-    <div class="bg-white my-3 rounded">
-        <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row px-4 py-2 ">
-            <h4 class="fw-bold py-3 mb-2"><span class="text-muted fw-light">Dokument /</span> Surat Masuk</h4>
+    <div class="mt-4 rounded">
+        <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row ">
+            <h4 class="fw-bold "><span class="text-muted fw-light">Dokument /</span> Surat Masuk</h4>
             <div class="">
                 <!-- <a href="" class="btn btn-primary">Tambah</a> -->
                 <!-- Button trigger modal -->
-                <div class="input-group input-group-merge">
-                    <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon-search31" />
-                </div>
+
             </div>
         </div>
     </div>
 
-    <div class="card my-3">
+    <div class="card mb-3">
+        <div class="p-3 d-flex justify-content-between ">
+            <div class="d-flex">
+                <div class="me-3">
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+                        <input wire:model.live="searchTerm" type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon-search31" />
+                    </div>
+                </div>
+                <div class="btn-group" role="group" aria-label="Second group">
+                    <button wire:click="add()" type="button" class="btn btn-primary btn-sm">
+                        <!-- <i class="bx bx-folder-plus"></i> -->
+                        <span style="font-size: 13px;">Tambah Surat Masuk</span>
+                    </button>
+                </div>
 
-        <div class="d-flex justify-content-end p-2">
-            <div class="btn-group" role="group" aria-label="Second group">
-                <button wire:click.prevent="add()" type="button" class="btn btn-outline-secondary">
-                    <i class="bx bx-folder-plus"></i>
-                    <span style="font-size: 13px;"> Tambah Surat Masuk</span>
-                </button>
             </div>
+            {{ $suratMasuks->links('vendor.pagination.simple-bootstrap-5') }}
         </div>
+
 
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
@@ -43,7 +50,7 @@
                         <td>{{ $suratMasuk->tanggal_masuk }}</td>
                         <td>{{ $suratMasuk->perihal }}</td>
                         <td>
-                            <a href="{{url('dokument/' .$suratMasuk->id .'/disposisi')}}"><i class='menu-icon tf-icons bx bx-briefcase-alt-2'></i>Info Detail</a>
+                            <a href="{{url('surat-disposisi/' .$suratMasuk->id .'/disposisi')}}"><i class='menu-icon tf-icons bx bx-briefcase-alt-2'></i>Info Detail</a>
 
                         </td>
                     </tr>
@@ -52,15 +59,14 @@
             </table>
         </div>
     </div>
-    {{ $suratMasuks->links('vendor.pagination.bootstrap-5') }}
-    
+
 
     <!-- Modal Tambah Surat Masuk -->
     <div class="modal fade" id="add" tabindex="-1" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Surat Masuk</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

@@ -9,4 +9,8 @@ class SuratKeluar extends Model
 {
     use HasFactory;
     protected $fillable = ['nomor_surat', 'penerima', 'tanggal_keluar', 'perihal'];
+    public function dokuments()
+    {
+        return $this->hasMany(FileDokument::class, 'dokument_id');
+    }
 }

@@ -22,10 +22,10 @@ class JabatanSeeder extends Seeder
             ['alias' => 'KABIB', 'name' => 'Kepala', 'bidang_id' => 2, 'user_id' => 4],
             ['alias' => 'KABIB', 'name' => 'Kepala', 'bidang_id' => 3, 'user_id' => 7],
             ['alias' => 'KASI', 'name' => 'Kepala Seksi', 'bidang_id' => 2, 'user_id' => 5],
-            ['alias' => 'STAFF', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 6],
-            ['alias' => 'STAFF', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 8],
-            ['alias' => 'STAFF', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 9],
-            ['alias' => 'STAFF', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 10],
+            ['alias' => 'STAFFBAGIAN', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 6],
+            ['alias' => 'STAFFBAGIAN', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 8],
+            ['alias' => 'STAFFBAGIAN', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 9],
+            ['alias' => 'STAFFBAGIAN', 'name' => 'Staff', 'bidang_id' => 2, 'user_id' => 10],
             // Tambahkan jabatan lainnya sesuai kebutuhan
         ];
 
@@ -61,8 +61,8 @@ class JabatanSeeder extends Seeder
 
         // Create surat keluar
         $suratKeluars = [
-            ['nomor_surat' => '001/SK/2024', 'penerima' => 'Company A', 'tanggal_keluar' => '2024-07-03', 'perihal' => 'Penawaran Produk'],
             ['nomor_surat' => '002/SK/2024', 'penerima' => 'Company B', 'tanggal_keluar' => '2024-07-04', 'perihal' => 'Konfirmasi Pesanan'],
+            ['nomor_surat' => '001/SK/2024', 'penerima' => 'Company A', 'tanggal_keluar' => '2024-07-03', 'perihal' => 'Penawaran Produk'],
         ];
 
         foreach ($suratKeluars as $suratKeluar) {
