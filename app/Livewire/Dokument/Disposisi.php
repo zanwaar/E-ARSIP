@@ -16,7 +16,6 @@ class Disposisi extends Component
 {
     use WithPagination;
     use LivewireAlert;
-    public $idfile;
     public $surat;
     public $nomorSurat;
     public $pengirim;
@@ -26,6 +25,66 @@ class Disposisi extends Component
     public function mount($surat)
     {
         $this->surat = $surat;
+    }
+    public $confirmDeletion = false;
+    public $idfile;
+
+    public function showDelete($id)
+    {
+        $this->idfile = $id;
+        $this->dispatch('show-modal-file');
+    }
+
+    public function deletefile()
+    {
+        $fileDokument = FileDokument::find($this->idfile);
+        $filePath = 'files/surat-masuk/' . $fileDokument->file;
+
+        // Check if the file exists in storage and delete it
+        if (Storage::disk('local')->exists($filePath)) {
+            Storage::disk('local')->delete($filePath);
+        }
+        $fileDokument->delete();
+        $this->dispatch('hide-form');
+        $this->alert('success', 'File Berhasil Dihapus.', [
+            'position' => 'top',
+            'timer' => 3000,
+            'toast' => true,
+            'timerProgressBar' => true,
+        ]);
+    }
+    public function delete()
+    {
+        if ($this->confirmDeletion) {
+
+            $suratmasuk = SuratMasuk::findOrFail($this->surat);
+            $fileDokuments = $suratmasuk->dokuments;
+
+            foreach ($fileDokuments as $fileDokument) {
+                // dd($fileDokument->file);
+                // Determine the file path
+                $filePath = 'files/surat-masuk/' . $fileDokument->file;
+
+                // Check if the file exists in storage and delete it
+                if (Storage::disk('local')->exists($filePath)) {
+                    Storage::disk('local')->delete($filePath);
+                }
+
+                // Delete the FileDokument record
+                $fileDokument->delete();
+            }
+            // Delete the SuratMasuk record
+            $suratmasuk->delete();
+            $this->confirmDeletion = false;
+
+            $this->alert('success', 'Delete successfully.', [
+                'position' => 'top',
+                'timer' => 2000,
+                'toast' => true,
+                'timerProgressBar' => true,
+            ]);
+            return redirect()->route('dokument.surat-masuk');
+        }
     }
     public function show()
     {
@@ -60,6 +119,7 @@ class Disposisi extends Component
                     'size' =>  $size . ' KB',
                 ]);
             }
+            $this->reset(['files']);
             DB::commit();
             $this->alert('success', 'Surat Masuk saved successfully.', [
                 'position' => 'top',
@@ -82,22 +142,6 @@ class Disposisi extends Component
         }
     }
 
-    public function showDelete($id)
-    {
-        $this->idfile = $id;
-        $this->dispatch('show-modal-file');
-    }
-    public function deletefile()
-    {
-        FileDokument::find($this->idfile)->delete();
-        $this->dispatch('hide-form');
-        $this->alert('success', 'File Berhasil Dihapus.', [
-            'position' => 'top',
-            'timer' => 3000,
-            'toast' => true,
-            'timerProgressBar' => true,
-        ]);
-    }
     public function getDisposisiProperty()
     {
         return SuratMasuk::with(['disposisis.user.jabatans', 'disposisis.bidang', 'dokuments'])

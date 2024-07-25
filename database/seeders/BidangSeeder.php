@@ -30,5 +30,6 @@ class BidangSeeder extends Seeder
         foreach ($bidangs as $bidang) {
             Bidang::create($bidang);
         }
+        
     }
 }

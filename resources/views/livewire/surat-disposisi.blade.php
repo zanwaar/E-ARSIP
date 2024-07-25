@@ -99,7 +99,7 @@
                     <div class="modal-body">
                         <div class="py-1 rounded" wire:ignore>
                             <select class="mySelect2 py-1 rounded" style=" width: 100%; ">
-                                <option selected>-- Bidang --</option>
+                                <option selected>-- Opsi --</option>
                             </select>
                         </div>
                         <div class="row">

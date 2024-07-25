@@ -93,7 +93,12 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nomor_surat" class="form-label">Perihal</label>
-                            <textarea class="form-control" wire:model="perihal" name="" id=""></textarea>
+                            <textarea class="form-control @error('perihal') is-invalid @enderror" wire:model="perihal" name="" id=""></textarea>
+                            @error('perihal')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- FILE DOKUMENT SURAT -->

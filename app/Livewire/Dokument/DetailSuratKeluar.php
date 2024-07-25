@@ -24,6 +24,41 @@ class DetailSuratKeluar extends Component
     {
         $this->surat = $surat;
     }
+    public $confirmDeletion = false;
+
+    public function delete()
+    {
+        if ($this->confirmDeletion) {
+
+            $suratkeluar = SuratKeluar::findOrFail($this->surat);
+            $fileDokuments = $suratkeluar->dokuments;
+
+            foreach ($fileDokuments as $fileDokument) {
+                // dd($fileDokument->file);
+                // Determine the file path
+                $filePath = 'files/surat-keluar/' . $fileDokument->file;
+
+                // Check if the file exists in storage and delete it
+                if (Storage::disk('local')->exists($filePath)) {
+                    Storage::disk('local')->delete($filePath);
+                }
+
+                // Delete the FileDokument record
+                $fileDokument->delete();
+            }
+            // Delete the suratkeluar record
+            $suratkeluar->delete();
+            $this->confirmDeletion = false;
+
+            $this->alert('success', 'Delete successfully.', [
+                'position' => 'top',
+                'timer' => 2000,
+                'toast' => true,
+                'timerProgressBar' => true,
+            ]);
+            return redirect()->route('dokument.surat-keluar');
+        }
+    }
     public function show()
     {
         $this->dispatch('show-modal-add');
@@ -35,7 +70,15 @@ class DetailSuratKeluar extends Component
     }
     public function deletefile()
     {
-        FileDokument::find($this->idfile)->delete();
+
+        $fileDokument = FileDokument::find($this->idfile);
+        $filePath = 'files/surat-keluar/' . $fileDokument->file;
+
+        // Check if the file exists in storage and delete it
+        if (Storage::disk('local')->exists($filePath)) {
+            Storage::disk('local')->delete($filePath);
+        }
+        $fileDokument->delete();
         $this->dispatch('hide-form');
         $this->alert('success', 'File Berhasil Dihapus.', [
             'position' => 'top',
@@ -74,7 +117,7 @@ class DetailSuratKeluar extends Component
                     'size' =>  $size . ' KB',
                 ]);
             }
-
+            $this->reset(['files']);
             DB::commit();
             $this->alert('success', 'Surat Keluar saved successfully.', [
                 'position' => 'top',

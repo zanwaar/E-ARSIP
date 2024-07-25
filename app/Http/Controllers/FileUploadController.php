@@ -24,8 +24,7 @@ class FileUploadController extends Controller
         if ($authRole === 'KADIS') {
             $usersQuery->whereHas('jabatans', function ($q) {
                 $q->where('alias', 'KABIB');
-            });
-            $usersQuery->take(4);
+            })->take(4);
         } elseif ($authRole === 'KABIB') {
             $usersQuery->whereHas('jabatans', function ($q) use ($authBidangId) {
                 $q->where('alias', 'KASI')
@@ -59,25 +58,67 @@ class FileUploadController extends Controller
 
     public function getPdf(Request $request)
     {
-        $file = $request->input('file');
-        // dd($file);
-        // $filePath = storage_path('app/pdf/' . $file);
-        $filePath = FileDokument::where('file', $file)
-            ->firstOrFail();
+        $fileName = $request->input('file');
 
-        if ($filePath->dokument == 'SURAT KELUAR') {
-            $filePath = 'files/surat-keluar/' . $filePath->file;
-        } else {
-            $filePath = 'files/surat-masuk/' . $filePath->file;
-        }
+        $fileDokument = FileDokument::where('file', $fileName)->firstOrFail();
 
-
+        $filePath = $this->getFilePath($fileDokument);
 
         if (!Storage::disk('local')->exists($filePath)) {
             abort(404, 'File not found');
         }
-        $contents = Storage::disk('local')->get($filePath);
-        return response($contents, 200)
-            ->header('Content-Type', 'application/pdf');
+
+        $file = Storage::disk('local')->get($filePath);
+
+        return response($file, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="' . $fileDokument->file . '"');
+    }
+
+    public function downloadFile(Request $request)
+    {
+        $fileName = $request->input('file');
+
+        $fileDokument = FileDokument::where('file', $fileName)->firstOrFail();
+
+        $filePath = $this->getFilePath($fileDokument);
+
+        if (!Storage::disk('local')->exists($filePath)) {
+            abort(404, 'File not found');
+        }
+
+        return response()->download(Storage::disk('local')->path($filePath));
+    }
+
+    public function deleteFile(Request $request)
+    {
+        $fileName = $request->input('file');
+
+        $fileDokument = FileDokument::where('file', $fileName)->firstOrFail();
+
+        $filePath = $this->getFilePath($fileDokument);
+
+        if (Storage::disk('local')->exists($filePath)) {
+            Storage::disk('local')->delete($filePath);
+        } else {
+            abort(404, 'File not found in storage');
+        }
+
+        $fileDokument->delete();
+
+        return response()->json(['message' => 'File deleted successfully']);
+    }
+
+    private function getFilePath($fileDokument)
+    {
+        if ($fileDokument->dokument == 'SURAT KELUAR') {
+            return 'files/surat-keluar/' . $fileDokument->file;
+        } else if ($fileDokument->dokument == 'SURAT MASUK') {
+            return 'files/surat-masuk/' . $fileDokument->file;
+        } else if ($fileDokument->dokument == 'DOKUMENT') {
+            return 'files/dokument/' . $fileDokument->file;
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

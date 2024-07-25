@@ -86,8 +86,8 @@
                     <div data-i18n="Analytics">Surat Keluar</div>
                 </a>
             </li>
-            <li class="menu-item ">
-                <a href="{{url('counter')}}" class="menu-link">
+            <li class="position-relative menu-item {{ $activeRoute === 'dokument.lainnya' ? 'active' : '' }}">
+                <a href="{{ route('dokument.lainnya') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-folder"></i>
                     <div data-i18n="Analytics">Lainnya</div>
                 </a>

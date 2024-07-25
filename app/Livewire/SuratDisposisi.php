@@ -78,18 +78,17 @@ class SuratDisposisi extends Component
     {
         $user = Auth::user();
 
-        if ($user->jabatans->alias == 'Staff') {
+        if ($user->jabatans->alias == 'STAFFBAGIAN') {
             $disposisi = Disposisi::with(['suratMasuk.dokuments'])
                 ->where('bidang_id', $user->jabatans->bidang->id)
-                ->orderBy('is_read', 'asc') // 'false' first
                 ->latest()
-                ->paginate(5);
+                ->paginate(10);
         } else {
             $disposisi = Disposisi::with(['suratMasuk.dokuments'])
                 ->where('user_id', $user->id)
                 ->orderBy('is_read', 'asc') // 'false' first
                 ->latest()
-                ->paginate(5);
+                ->paginate(10);
         }
 
         return $disposisi;

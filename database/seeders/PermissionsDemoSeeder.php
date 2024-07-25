@@ -91,7 +91,7 @@ class PermissionsDemoSeeder extends Seeder
         // Sub kepala Bagian 
         // create demo users 7
         $user = \App\Models\User::factory()->create([
-            'email' => 'subkabib@hukum.com',
+            'email' => 'subkabib@keuangan.com',
         ]);
         $user->assignRole($subkabib);
         $user->assignRole($staffBagian);
@@ -109,6 +109,22 @@ class PermissionsDemoSeeder extends Seeder
         // create demo users 10
         $user = \App\Models\User::factory()->create([
             'email' => 'staff3@kepegawaian.com',
+        ]);
+        $user->assignRole($staffBagian);
+        // kasi Kepala saksi
+        // create demo users 11
+        $user = \App\Models\User::factory()->create([
+            'email' => 'kasi@keuangan.com',
+        ]);
+        $user->assignRole($kasi);
+        // create demo users 12
+        $user = \App\Models\User::factory()->create([
+            'email' => 'staff1@keuangan.com',
+        ]);
+        $user->assignRole($staffBagian);
+        // create demo users 13
+        $user = \App\Models\User::factory()->create([
+            'email' => 'staff2@keuangan.com',
         ]);
         $user->assignRole($staffBagian);
     }

@@ -32,13 +32,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/view-pdf', [FileUploadController::class, 'downloadFile'])->name('view.pdf');
+    Route::get('/Dokument', [FileUploadController::class, 'getPdf'])->name('getPdf');
+    Route::post('/Dokument', [FileUploadController::class, 'getPdf'])->name('getPdf');
+    Route::delete('/file-delete', [FileUploadController::class, 'deleteFile'])->name('file.delete');
+
     Route::get('/', Beranda::class)->name('home');
     Route::get('/surat-disposisi', SuratDisposisi::class)->name('surat.disposisi');
     Route::get('/surat-disposisi/{surat}/disposisi', Disposisi::class);
     Route::get('/surat/{surat}/surat-keluar', DetailSuratKeluar::class)->name('detail.suratKeluar');
     Route::post('/upload', [FileUploadController::class, 'upload']);
-    Route::get('/Dokument', [FileUploadController::class, 'getPdf'])->name('getPdf');
-    Route::post('/Dokument', [FileUploadController::class, 'getPdf'])->name('getPdf');
     Route::get('/fetch', [FileUploadController::class, 'fetch'])->name('fetch');
     Route::prefix('dokument')->as('dokument.')->group(function () {
         Route::get('/surat-masuk', SuratMasuk::class)->name('surat-masuk')->middleware('role:staffAdmin');

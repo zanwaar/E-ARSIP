@@ -86,6 +86,24 @@
 
         </div>
     </div>
+    <div class="card mt-3">
+        <h5 class="card-header">Hapus Surat Keluar</h5>
+        <div class="card-body">
+            <div class="mb-3 col-12 mb-0">
+                <div class="alert alert-warning">
+                    <h6 class="alert-heading fw-bold mb-1">Apakah Anda yakin ingin menghapus Surat ini?</h6>
+                    <p class="mb-0">Setelah Anda menghapus Surat Keluar ini, semua data terkait akan dihapus secara permanen dan tidak dapat dikembalikan. Mohon pastikan keputusan Anda.</p>
+                </div>
+            </div>
+            <form id="formBidangDeletion" wire:submit.prevent="delete">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="confirmDeletion" id="confirmDeletion" wire:model="confirmDeletion" />
+                    <label class="form-check-label" for="confirmDeletion">Saya mengonfirmasi penghapusan Surat Keluar ini</label>
+                </div>
+                <button type="submit" class="btn btn-danger">Hapus Surat Keluar</button>
+            </form>
+        </div>
+    </div>
     <div class="modal fade" id="file" tabindex="-1" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">

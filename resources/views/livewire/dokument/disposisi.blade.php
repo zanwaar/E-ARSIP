@@ -52,18 +52,18 @@
                     @foreach ($suratDisposisi->dokuments as $dokument)
                     <div class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-2">
                         <!--[if BLOCK]><![endif]-->
-                        <div class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700">
-                            <form class="dz-flex dz-items-center dz-gap-3 w-100 dz-cursor-pointer">
-                                @csrf
-                                <input type="hidden" name="file" value="{{ $dokument->file }}">
-                                <button type="submit" class="dz-flex dz-justify-center dz-items-center dz-w-14 dz-h-14 dz-bg-gray-100 dark:dz-bg-gray-700">
+                        <form action="{{ route('getPdf') }}" method="POST" target="_blank" class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700">
+                            @csrf
+                            <input type="hidden" name="file" value="{{ $dokument->file }}">
+                            <button class="dz-flex dz-items-center dz-gap-3 w-100 dz-cursor-pointer">
+                                <div type="submit" class="dz-flex dz-justify-center dz-items-center dz-w-14 dz-h-14 dz-bg-gray-100 dark:dz-bg-gray-700">
                                     <i class="bx bxs-file-pdf display-4 cursor-pointer text-danger"></i>
-                                </button>
+                                </div>
                                 <div class="dz-flex dz-flex-col dz-items-start dz-gap-1">
                                     <div class="dz-text-center  dz-text-sm dz-font-medium " style="padding-right: 15px;">{{ $dokument->file }}</div>
                                     <div class="dz-text-center dz-text-gray-500 dz-text-sm dz-font-medium">{{ $dokument->size }}</div>
                                 </div>
-                            </form>
+                            </button>
                             @role('staffAdmin')
                             <div wire:click="showDelete({{ $dokument->id }})" class="dz-flex dz-items-center dz-mr-3">
                                 <button type="button">
@@ -73,7 +73,7 @@
                                 </button>
                             </div>
                             @endrole
-                        </div>
+                        </form>
                         <!--[if ENDBLOCK]><![endif]-->
                     </div>
 
@@ -100,6 +100,24 @@
         </div>
     </div>
     @role('staffAdmin')
+    <div class="card mt-3">
+        <h5 class="card-header">Hapus Surat Masuk</h5>
+        <div class="card-body">
+            <div class="mb-3 col-12 mb-0">
+                <div class="alert alert-warning">
+                    <h6 class="alert-heading fw-bold mb-1">Apakah Anda yakin ingin menghapus Surat ini?</h6>
+                    <p class="mb-0">Setelah Anda menghapus Surat Masuk ini, semua data terkait akan dihapus secara permanen dan tidak dapat dikembalikan. Mohon pastikan keputusan Anda.</p>
+                </div>
+            </div>
+            <form id="formBidangDeletion" wire:submit.prevent="delete">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="confirmDeletion" id="confirmDeletion" wire:model="confirmDeletion" />
+                    <label class="form-check-label" for="confirmDeletion">Saya mengonfirmasi penghapusan Surat Masuk ini</label>
+                </div>
+                <button type="submit" class="btn btn-danger">Hapus Surat Masuk</button>
+            </form>
+        </div>
+    </div>
     <div class="modal fade" id="file" tabindex="-1" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">

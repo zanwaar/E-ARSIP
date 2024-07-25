@@ -18,4 +18,5 @@ class SuratMasuk extends Model
     {
         return $this->hasMany(FileDokument::class, 'dokument_id');
     }
+
 }

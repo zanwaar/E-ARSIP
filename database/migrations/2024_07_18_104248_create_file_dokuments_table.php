@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('file_dokuments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dokument_id');
+            $table->foreignId('dokument_id')->nullable();
             $table->string('dokument');
             $table->string('file');
             $table->string('size')->nullable();

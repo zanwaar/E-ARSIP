@@ -14,8 +14,6 @@ use Livewire\WithPagination;
 
 class SuratMasuk extends Component
 {
-    // generate nomor_surat
-    // contoh 001/SM/2024
     use WithPagination;
     use LivewireAlert;
     // protected $paginationTheme = 'bootstrap';
@@ -27,6 +25,7 @@ class SuratMasuk extends Component
 
     protected $queryString = ['searchTerm' => ['except' => '']];
     public array  $files = [];
+  
     public function saves()
     {
         $this->validate([

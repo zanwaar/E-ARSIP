@@ -8,3 +8,6 @@
 </p>
 
 ## About Laravel
+php artisan migrate:fresh --seed 
+php artisan db:seed --class=SuratKeluarSeeder
+

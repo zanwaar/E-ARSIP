@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{{ $title ?? 'Page Title' }}</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://e-arsip.batukel.site/logo-black.png" />
+    <title>{{ $title ?? 'Maluku Tengah - Dinas Pendidikan dan Kebudayaan' }}</title>
     <meta name="description" content="" />
     @livewireStyles
     <!-- Favicon -->
@@ -138,17 +139,10 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                , made with ❤️ by
-                                <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                                , Maluku Tengah
+                                <a href="#" target="_blank" class="footer-link fw-bolder"> - Dinas Pendidikan dan Kebudayaan</a>
                             </div>
-                            <div>
-                                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
 
-                                <a href="https://themeselection.com/demo/template-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
-
-                                <a href="https://github.com/themeselection/template-html-admin-template-free/issues" target="_blank" class="footer-link me-4">Support</a>
-                            </div>
                         </div>
                     </footer>
                     <!-- / Footer -->
