@@ -107,16 +107,16 @@ class JabatanSeeder extends Seeder
 
 
         // Create disposisi surat masuk
-        Disposisi::create(['surat_masuk_id' => 1, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 2, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 3, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 4, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 5, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 6, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 7, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 8, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 9, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
-        Disposisi::create(['surat_masuk_id' => 10, 'user_id' => 3, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 1, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 2, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 3, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 4, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 5, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 6, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 7, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 8, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 9, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
+        Disposisi::create(['surat_masuk_id' => 10, 'user_id' => 3, 'is_read' => true, 'isi_disposisi' => 'Surat Masuk']);
 
         $disposisiMessages = [
             'Harap ditindaklanjuti segera.',
@@ -167,7 +167,7 @@ class JabatanSeeder extends Seeder
         }
 
         // Create disposisi kasi ke staff Kepegawaian id 6
-        for ($i = 1; $i <= 2; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             Disposisi::create([
                 'surat_masuk_id' => $i,
                 'user_id' => 6,
@@ -198,22 +198,22 @@ class JabatanSeeder extends Seeder
         }
 
         // Create disposisi kasi ke staff keuangan id 12
-        // for ($i = 6; $i <= 10; $i++) {
-        //     Disposisi::create([
-        //         'surat_masuk_id' => $i,
-        //         'user_id' => 12,
-        //         'bidang_id' => 3,
-        //         'is_read' => true,
-        //         'isi_disposisi' => $faker->randomElement($disposisiMessages)
-        //     ]);
-        // }
-        // // Create disposisi kasi ke staff Kepegawaian id 6
-        // for ($i = 1; $i <= 10; $i++) {
-        //     FileDokument::create([
-        //         'dokument' => 'DOKUMENT',
-        //         'file' => 'DOKUMENT_' . $faker->word . '_' . $faker->numberBetween(1000, 9999) . '.pdf',
-        //         'size' => $faker->numberBetween(10, 999) . ' KB'
-        //     ]);
-        // }
+        for ($i = 6; $i <= 10; $i++) {
+            Disposisi::create([
+                'surat_masuk_id' => $i,
+                'user_id' => 12,
+                'bidang_id' => 3,
+                'is_read' => true,
+                'isi_disposisi' => $faker->randomElement($disposisiMessages)
+            ]);
+        }
+        // Create disposisi kasi ke staff Kepegawaian id 6
+        for ($i = 1; $i <= 10; $i++) {
+            FileDokument::create([
+                'dokument' => 'DOKUMENT',
+                'file' => 'DOKUMENT_' . $faker->word . '_' . $faker->numberBetween(1000, 9999) . '.pdf',
+                'size' => $faker->numberBetween(10, 999) . ' KB'
+            ]);
+        }
     }
 }

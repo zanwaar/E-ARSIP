@@ -23,6 +23,7 @@ class SuratDisposisi extends Component
     public function add($id)
     {
         // dd($id);
+        $this->reset(['user_id']);
         $this->idSuratMasuk = $id['surat_masuk']['id'];
         $this->idDisposisi = $id['id'];
         $this->dispatch('show-modal-add');
@@ -30,7 +31,7 @@ class SuratDisposisi extends Component
     public function addTask()
     {
         $this->validate([
-            'idDisposisi' => 'required',
+            'user_id' => 'required',
             'isi' => 'required',
         ]);
         // dd($this->user_id);
@@ -53,16 +54,6 @@ class SuratDisposisi extends Component
                     'bidang_id' => $authUser->jabatans->bidang->id,
                     'is_read' => true,
                 ]);
-            } elseif ($authRole  == 'KADIS') {
-                $suratmasuk = SuratMasuk::findOrFail($this->idSuratMasuk);
-                $user = User::findOrFail($this->user_id);
-                $fileDokuments = $suratmasuk->dokuments;
-
-                foreach ($fileDokuments as $fileDokument) {
-                    // Update Bidang_id with the new value
-                    $fileDokument->Bidang_id = $user->jabatans->bidang->id;
-                    $fileDokument->update();
-                }
             } else {
                 // Jika bukan 'Kasi', maka bidang_id null
                 Disposisi::create([

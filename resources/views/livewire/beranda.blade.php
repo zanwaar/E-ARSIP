@@ -5,13 +5,27 @@
             <div class="d-flex align-items-center justify-content-between row">
                 <div class="col-sm-9">
                     <div class="card-body " wire:ignore>
-                        <h4 class="card-title text-primary" id="greeting-message">
-                            <!-- Placeholder for the dynamic greeting message -->
-                        </h4>
+                        <div class="d-flex flex-row">
+                            <div class="d-inline-blocktext-black mt-0 p-0">
+                                <h4 class="card-title text-primary" id="greeting-message">
+                                    <!-- Placeholder for the dynamic greeting message -->
+                                </h4>
+                                <span class="text-muted">
+                                    @if (auth()->user()->jabatans?->alias == 'KADIS' )
+                                    {{ auth()->user()->jabatans?->name }}
+                                    @else
+                                    {{ auth()->user()->jabatans?->name }} {{ auth()->user()->jabatans?->bidang->name }}
+                                    @endif
+                                </span>
+
+                            </div>
+
+                        </div>
+
                         <p class="fw-bold" id="current-time">
                             <!-- Placeholder for the real-time clock -->
                         </p>
-                        <p class="text-muted">
+                        <p>
                             Digitalisasi Arsip: Solusi Cerdas untuk Manajemen Disposisi Surat Masuk dan Dokumen Lainnya
 
                         </p>

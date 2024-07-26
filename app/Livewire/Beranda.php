@@ -20,24 +20,27 @@ class Beranda extends Component
 
         $query = FileDokument::query();
 
-        if ($authUser->jabatans->alias !== 'KADIS') {
-            $query->where(function ($q) use ($authUser) {
-                // Kondisi untuk 'SURAT MASUK'
-                $q->where(function ($subQuery) use ($authUser) {
-                    $subQuery->where('dokument', FileDokument::MASUK)
-                        ->whereHas('disposisi', function ($subQuery) use ($authUser) {
-                            if ($authUser->jabatans->alias === 'STAFFBAGIAN') {
-                                $subQuery->where('bidang_id', $authUser->jabatans->bidang_id);
-                            } else {
-                                $subQuery->where('user_id', $authUser->id);
-                            }
-                        });
-                });
+        if ($authUser->jabatans?->alias) {
+            if ($authUser->jabatans?->alias !== 'KADIS') {
+                $query->where(function ($q) use ($authUser) {
+                    // Kondisi untuk 'SURAT MASUK'
+                    $q->where(function ($subQuery) use ($authUser) {
+                        $subQuery->where('dokument', FileDokument::MASUK)
+                            ->whereHas('disposisi', function ($subQuery) use ($authUser) {
+                                if ($authUser->jabatans?->alias === 'STAFFBAGIAN') {
+                                    $subQuery->where('bidang_id', $authUser->jabatans->bidang_id);
+                                } else {
+                                    $subQuery->where('user_id', $authUser->id);
+                                }
+                            });
+                    });
 
-                // Kondisi untuk 'SURAT KELUAR' dan 'DOKUMENT'
-                $q->orWhereIn('dokument', [FileDokument::KELUAR, FileDokument::DOKUMENT]);
-            });
+                    // Kondisi untuk 'SURAT KELUAR' dan 'DOKUMENT'
+                    $q->orWhereIn('dokument', [FileDokument::KELUAR, FileDokument::DOKUMENT]);
+                });
+            }
         }
+
 
         return $query->where('file', 'like', '%' . $this->searchTerm . '%')
             ->latest()
@@ -50,17 +53,19 @@ class Beranda extends Component
 
         $query = FileDokument::where('dokument', $status);
 
-        if ($authUser->jabatans->alias !== 'KADIS') {
-            if ($status === FileDokument::MASUK) {
-                // Filter berdasarkan disposisi yang ditujukan kepada pengguna yang sedang login
-                $query->whereHas('disposisi', function ($subQuery) use ($authUser) {
-                    // Menyesuaikan filter berdasarkan peran pengguna
-                    if ($authUser->jabatans->alias === 'STAFFBAGIAN') {
-                        $subQuery->where('bidang_id', $authUser->jabatans->bidang_id);
-                    } else {
-                        $subQuery->where('user_id', $authUser->id);
-                    }
-                });
+        if ($authUser->jabatans?->alias) {
+            if ($authUser->jabatans?->alias !== 'KADIS') {
+                if ($status === FileDokument::MASUK) {
+                    // Filter berdasarkan disposisi yang ditujukan kepada pengguna yang sedang login
+                    $query->whereHas('disposisi', function ($subQuery) use ($authUser) {
+                        // Menyesuaikan filter berdasarkan peran pengguna
+                        if ($authUser->jabatans?->alias === 'STAFFBAGIAN') {
+                            $subQuery->where('bidang_id', $authUser->jabatans->bidang_id);
+                        } else {
+                            $subQuery->where('user_id', $authUser->id);
+                        }
+                    });
+                }
             }
         }
 
