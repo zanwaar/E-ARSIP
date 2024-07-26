@@ -26,8 +26,9 @@
             <div class="btn-group  " role="group" aria-label="Basic example">
                 <button type="button" class="btn-sm {{$selectedJabatan == 'ALL' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('ALL')">ALL</button>
                 <button type="button" class="btn-sm {{$selectedJabatan == 'KADIS' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('KADIS')">KADIS</button>
-                <button type="button" class="btn-sm {{$selectedJabatan == 'KABIB' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('KABIB')">KABIB</button>
-                <button type="button" class="btn-sm {{$selectedJabatan == 'STAFF' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('STAFF')">STAFF</button>
+                <button type="button" class="btn-sm {{$selectedJabatan == 'SUBKABIB' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('SUBKABIB')">KABIB</button>
+                <button type="button" class="btn-sm {{$selectedJabatan == 'KASI' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('KASI')">KASI</button>
+                <button type="button" class="btn-sm {{$selectedJabatan == 'STAFFBAGIAN' ? 'btn btn-primary' : 'btn btn-outline-primary'}}" wire:click="filterByJabatan('STAFFBAGIAN')">STAFF</button>
             </div>
         </div>
 

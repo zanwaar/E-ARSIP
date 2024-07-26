@@ -50,6 +50,7 @@
                 <div class="d-flex flex-column mx-2 w-100  text-black">
                     <small class="d-block text-secondary">Dokument File Surat Masuk</small>
                     @foreach ($suratDisposisi->dokuments as $dokument)
+                    @if ($dokument->dokument == 'SURAT MASUK')
                     <div class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-2">
                         <!--[if BLOCK]><![endif]-->
                         <form action="{{ route('getPdf') }}" method="POST" target="_blank" class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700">
@@ -76,6 +77,7 @@
                         </form>
                         <!--[if ENDBLOCK]><![endif]-->
                     </div>
+                    @endif
 
                     @endforeach
                 </div>

@@ -11,3 +11,9 @@
 php artisan migrate:fresh --seed 
 php artisan db:seed --class=SuratKeluarSeeder
 
+Route::get('/symlink', function () {
+    $target = $_SERVER['DOCUMENT_ROOT'] . '/backend/storage/app/public';
+    $link = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+    symlink($target, $link);
+    echo "Done";
+});

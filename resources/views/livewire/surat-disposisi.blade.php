@@ -58,6 +58,7 @@
                 <div class="d-flex flex-column mx-2 w-100  text-black">
                     <small class="d-block text-secondary">Dokument File Surat Masuk</small>
                     @foreach ($surat->suratMasuk->dokuments as $dokument)
+                    @if ($dokument->dokument == 'SURAT MASUK')
                     <form action="{{ route('getPdf') }}" method="POST" target="_blank">
                         @csrf
                         <input type="hidden" name="file" value="{{ $dokument->file }}">
@@ -75,6 +76,8 @@
                             </div>
                         </button>
                     </form>
+
+                    @endif
                     @endforeach
                 </div>
             </div>

@@ -58,7 +58,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Disposisi</span>
             </li>
-            <li class="position-relative menu-item {{ $activeRoute === 'surat.disposisi' ? 'active' : '' }}">
+            <li class="position-relative menu-item {{ $activeRoute === 'surat.disposisi' || $activeRoute === 'disposisi.id' ? 'active' : '' }}">
                 <a href="{{ route('surat.disposisi') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-mail-send"></i>
                     <div data-i18n="Analytics">Surat Disposisi</div>
@@ -74,13 +74,14 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">FILE DOKUMENT</span>
             </li>
-            <li class="position-relative menu-item {{ $activeRoute === 'dokument.surat-masuk' ? 'active' : '' }}">
+           <li class="position-relative menu-item {{ $activeRoute === 'dokument.surat-masuk' || $activeRoute === 'disposisi.id' ? 'active' : '' }}">
                 <a href="{{ route('dokument.surat-masuk') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-folder-plus "></i>
+                    <i class="menu-icon tf-icons bx bx-folder-plus"></i>
                     <div data-i18n="Analytics">Surat Masuk</div>
                 </a>
             </li>
-            <li class="position-relative menu-item {{ $activeRoute === 'dokument.surat-keluar' ? 'active' : '' }}">
+
+            <li class="position-relative menu-item {{ $activeRoute === 'dokument.surat-keluar'  || $activeRoute === 'detail.suratKeluar' ? 'active' : '' }}">
                 <a href="{{ route('dokument.surat-keluar') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-folder-open"></i>
                     <div data-i18n="Analytics">Surat Keluar</div>

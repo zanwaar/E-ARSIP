@@ -21,9 +21,9 @@ class FileDokument extends Model
     public function getStatusBadgeAttribute()
     {
         $badges = [
-            $this::KELUAR => 'danger',
-            $this::MASUK => 'primary',
-            $this::DOKUMENT => 'success',
+            self::KELUAR => 'danger',
+            self::MASUK => 'primary',
+            self::DOKUMENT => 'success',
         ];
 
         return $badges[$this->dokument];
@@ -31,5 +31,20 @@ class FileDokument extends Model
     public function getFormattedCreatedAtAttribute(): string
     {
         return $this->created_at->isoFormat('dddd, D MMMM YYYY, HH:mm:ss');
+    }
+
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
+    // public function suratmasuk()
+    // {
+
+    //     return $this->belongsTo(SuratMasuk::class, 'dokument_id', 'id')
+    //         ->where('dokument', self::MASUK);
+    // }
+    public function disposisi()
+    {
+        return $this->hasMany(Disposisi::class, 'surat_masuk_id', 'dokument_id');
     }
 }

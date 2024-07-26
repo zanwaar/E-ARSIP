@@ -59,6 +59,6 @@ class User extends Authenticatable
     }
     public function jabatans()
     {
-        return $this->hasOne(jabatan::class);
+        return $this->hasOne(Jabatan::class);
     }
 }

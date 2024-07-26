@@ -113,7 +113,7 @@ class SuratKeluar extends Component
         $newNumber = str_pad($latestNumber + 1, 3, '0', STR_PAD_LEFT);
 
         // Generate the new nomor_surat
-        $this->nomorSurat = "{$newNumber}/SM/{$currentYear}";
+        $this->nomorSurat = "{$newNumber}/SK/{$currentYear}";
 
         return $this->nomorSurat;
     }

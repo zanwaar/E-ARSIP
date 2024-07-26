@@ -10,7 +10,7 @@ class Jabatan extends Model
     use HasFactory;
     protected $guarded = [];
     const KADIS = 'KADIS';
-    const KABIB = 'KABIB';
+    const KABIB = 'SUBKABIB';
     const KASIH = 'KASI';
     const STAFF = 'STAFF';
 

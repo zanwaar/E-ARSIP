@@ -115,6 +115,7 @@ class Disposisi extends Component
                 FileDokument::create([
                     'dokument_id' => $this->surat,
                     'dokument' => 'SURAT MASUK',
+                    'bidang_id' => 0,
                     'file' => $fileName,
                     'size' =>  $size . ' KB',
                 ]);

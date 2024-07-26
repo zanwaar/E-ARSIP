@@ -130,7 +130,6 @@
                     <tbody class="table-border-bottom-0">
                         @foreach ($files as $file)
                         <tr>
-
                             <td class="d-flex align-items-center">
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -160,9 +159,6 @@
                             <td>{{ $file->formatted_created_at }}</td>
                         </tr>
                         @endforeach
-
-
-
                     </tbody>
                 </table>
             </div>

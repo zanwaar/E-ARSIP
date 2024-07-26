@@ -3,7 +3,10 @@
 namespace App\Livewire;
 
 use App\Livewire\Components\Sidebar;
+use App\Models\Bidang;
 use App\Models\Disposisi;
+use App\Models\SuratMasuk;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -36,6 +39,7 @@ class SuratDisposisi extends Component
             Disposisi::where('id', $this->idDisposisi)->update([
                 'is_read' => true,
             ]);
+
             $authUser = auth()->user();
             $authRole = $authUser->jabatans->alias ?? null;
 
@@ -49,6 +53,16 @@ class SuratDisposisi extends Component
                     'bidang_id' => $authUser->jabatans->bidang->id,
                     'is_read' => true,
                 ]);
+            } elseif ($authRole  == 'KADIS') {
+                $suratmasuk = SuratMasuk::findOrFail($this->idSuratMasuk);
+                $user = User::findOrFail($this->user_id);
+                $fileDokuments = $suratmasuk->dokuments;
+
+                foreach ($fileDokuments as $fileDokument) {
+                    // Update Bidang_id with the new value
+                    $fileDokument->Bidang_id = $user->jabatans->bidang->id;
+                    $fileDokument->update();
+                }
             } else {
                 // Jika bukan 'Kasi', maka bidang_id null
                 Disposisi::create([

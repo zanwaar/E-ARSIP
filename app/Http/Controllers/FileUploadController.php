@@ -23,9 +23,9 @@ class FileUploadController extends Controller
 
         if ($authRole === 'KADIS') {
             $usersQuery->whereHas('jabatans', function ($q) {
-                $q->where('alias', 'KABIB');
+                $q->where('alias', 'SUBKABIB');
             })->take(4);
-        } elseif ($authRole === 'KABIB') {
+        } elseif ($authRole === 'SUBKABIB') {
             $usersQuery->whereHas('jabatans', function ($q) use ($authBidangId) {
                 $q->where('alias', 'KASI')
                     ->where('bidang_id', $authBidangId);
