@@ -89,7 +89,7 @@ class SuratDisposisi extends Component
                 ->latest()
                 ->paginate(10);
         } else {
-            $disposisi = Disposisi::with(['suratMasuk.dokuments'])
+            $disposisi = Disposisi::with(['suratMasuk.dokuments', 'suratMasuk.disposisis'])
                 ->where('user_id', $user->id)
                 ->orderBy('is_read', 'asc') // 'false' first
                 ->latest()
@@ -101,6 +101,7 @@ class SuratDisposisi extends Component
 
     public function render()
     {
+        // dd($this->disposisis);
         return view('livewire.surat-disposisi', ['suratDisposisi' => $this->disposisis]);
     }
 }

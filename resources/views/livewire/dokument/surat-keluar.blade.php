@@ -7,7 +7,7 @@
                 <!-- Button trigger modal -->
 
             </div>
-        </div>
+        </div> 
     </div>
 
     <div class="card mb-3">

@@ -48,7 +48,12 @@
                     </div>
 
                     @else
-                    <a class="btn btn-dark" href="{{url('surat-disposisi/' .$surat->suratMasuk->id .'/disposisi')}}"><i class='bx bx-mail-send me-2'></i>Traking Surat Disposisi</a>
+                    <div class="d-flex flex-column">
+                        <p class="text-black text-end "> <span class="d-block text-secondary">Keterangan Disposisi</span>{{$surat->suratMasuk->disposisis[2]->isi_disposisi}}</p>
+                        <div class="d-flex justify-content-end">
+                            <a class="" href="{{url('surat-disposisi/' .$surat->suratMasuk->id .'/disposisi')}}"><i class='bx bx-mail-send me-2'></i>Traking Surat Disposisi</a>
+                        </div>
+                    </div>
 
                     @endif
                 </div>
@@ -79,6 +84,7 @@
 
                     @endif
                     @endforeach
+
                 </div>
             </div>
             <hr>
@@ -86,7 +92,7 @@
         </div>
     </div>
     @endforeach
-    {{ $suratDisposisi->links() }}
+    {{ $suratDisposisi->links('vendor.pagination.bootstrap-5')  }}
     @endempty
 
 
