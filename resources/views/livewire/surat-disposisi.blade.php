@@ -38,9 +38,25 @@
                     </div>
 
                 </div>
-                <div class="d">
+
+                <div class="d text-end">
+                    <div class="d-flex flex-column">
+                        @php
+                        $authUser = auth()->user();
+                        $authRole = $authUser->jabatans->alias ?? null;
+                        @endphp
+                        @if ($authUser->jabatans->alias == 'KADIS')
+                        <p class="text-black text-end "> <span class="d-block text-secondary">Isi Disposisi</span>{{$surat->suratMasuk->disposisis[0]->isi_disposisi}}</p>
+                        @endif
+                        @if ($authUser->jabatans->alias == 'SUBKABIB')
+                        <p class="text-black text-end "> <span class="d-block text-secondary">Isi Disposisi</span>{{$surat->suratMasuk->disposisis[1]->isi_disposisi}}</p>
+                        @endif
+                        @if ($authUser->jabatans->alias == 'KASI')
+                        <p class="text-black text-end "> <span class="d-block text-secondary">Isi Disposisi</span>{{$surat->suratMasuk->disposisis[2]->isi_disposisi}}</p>
+                        @endif
+                    </div>
                     @if (!$surat->is_read)
-                    <div class="btn-group" role="group" aria-label="Second group">
+                    <div class="btn-group  " role="group" aria-label="Second group">
                         <button wire:click.prevent="add({{ $surat }})" type="button" class="btn btn-primary">
                             <i class="bx bx-mail-send me-1"></i>
                             <span style="font-size: 13px;">Disposisikan</span>
@@ -49,7 +65,6 @@
 
                     @else
                     <div class="d-flex flex-column">
-                        <p class="text-black text-end "> <span class="d-block text-secondary">Keterangan Disposisi</span>{{$surat->suratMasuk->disposisis[2]->isi_disposisi}}</p>
                         <div class="d-flex justify-content-end">
                             <a class="" href="{{url('surat-disposisi/' .$surat->suratMasuk->id .'/disposisi')}}"><i class='bx bx-mail-send me-2'></i>Traking Surat Disposisi</a>
                         </div>

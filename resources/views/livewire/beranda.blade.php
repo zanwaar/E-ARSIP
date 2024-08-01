@@ -14,7 +14,7 @@
                                     @if (auth()->user()->jabatans?->alias == 'KADIS' )
                                     {{ auth()->user()->jabatans?->name }}
                                     @else
-                                    {{ auth()->user()->jabatans?->name }} {{ auth()->user()->jabatans?->bidang->name }}
+                                    {{ auth()->user()->jabatans?->alias }} {{ auth()->user()->jabatans?->bidang->name }}
                                     @endif
                                 </span>
 
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="row ">
-            <div class="col-md-4 mb-3">
+            <div class="{{auth()->user()->jabatans?->alias != 'STAFFBAGIAN' ? 'col-md-6' : 'col-md-12'}} mb-3">
                 <div class="card">
                     <div class="p-2">
 
@@ -69,7 +69,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
+            @if (auth()->user()->jabatans?->alias != 'STAFFBAGIAN')
+            <div class="{{auth()->user()->jabatans?->alias != 'STAFFBAGIAN' ? 'col-md-6' : 'col-md-12'}} mb-3">
                 <div class="card">
                     <div class="p-2">
 
@@ -93,30 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="p-2">
-
-                        <div class="d-flex ">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <span class="badge bg-label-success p-2">
-                                    <i class="bx bx-folder text-success"></i>
-                                </span>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <!-- <small class="text-muted d-block mb-1">Paypal</small> -->
-                                    <h6 class="mb-0">Dokument</h6>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 mx-2 fw-bold">{{$totalDokument}}</h6>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
         <!-- Striped Rows -->
         <div class="card">

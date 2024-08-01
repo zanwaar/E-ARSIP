@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dokument;
 
+use App\Models\Bidang;
 use App\Models\FileDokument;
 use App\Models\SuratKeluar as ModelsSuratKeluar;
 use Illuminate\Http\File;
@@ -20,6 +21,7 @@ class SuratKeluar extends Component
     public $nomorSurat;
     public $penerima;
     public $perihal;
+    public $idbidang;
     public $tanggal_keluar;
     public array  $files = [];
     protected $queryString = ['searchTerm' => ['except' => '']];
@@ -35,6 +37,7 @@ class SuratKeluar extends Component
             'penerima' => 'required|string|max:255',
             'tanggal_keluar' => 'required|date',
             'perihal' => 'required|string',
+            'idbidang' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -45,6 +48,7 @@ class SuratKeluar extends Component
                 'penerima' => $this->penerima,
                 'tanggal_keluar' => $this->tanggal_keluar,
                 'perihal' => $this->perihal,
+                'bidang_id' => $this->idbidang,
             ]);
 
             foreach ($this->files as $file) {
@@ -83,12 +87,16 @@ class SuratKeluar extends Component
     }
     public function getSuratKeluarProperty()
     {
-        return ModelsSuratKeluar::where(function ($query) {
-            $query->where('nomor_surat', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('penerima', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('perihal', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('tanggal_keluar', 'like', '%' . $this->searchTerm . '%');
-        })
+        return ModelsSuratKeluar::with('bidang')
+            ->whereHas('bidang', function ($query) {
+                $query->where('name', 'like', '%' . $this->searchTerm . '%');
+            })
+            ->orWhere(function ($query) {
+                $query->where('nomor_surat', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('penerima', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('perihal', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('tanggal_keluar', 'like', '%' . $this->searchTerm . '%');
+            })
             ->latest()
             ->paginate(10);
     }
@@ -119,6 +127,7 @@ class SuratKeluar extends Component
     }
     public function render()
     {
-        return view('livewire.dokument.surat-keluar', ['suratKeluars' => $this->surat_keluar]);
+        $bidang = Bidang::where('name', '<>', 'Kepala Dinas')->get();
+        return view('livewire.dokument.surat-keluar', ['suratKeluars' => $this->surat_keluar, 'bidangs' => $bidang]);
     }
 }

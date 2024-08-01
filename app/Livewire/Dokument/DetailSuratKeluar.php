@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dokument;
 
+use App\Models\Bidang;
 use App\Models\FileDokument;
 use App\Models\SuratKeluar;
 use Illuminate\Http\File;
@@ -19,6 +20,7 @@ class DetailSuratKeluar extends Component
     public $penerima;
     public $perihal;
     public $tanggal_keluar;
+    public $idbidang;
     public array  $files = [];
     public function mount($surat)
     {
@@ -93,6 +95,7 @@ class DetailSuratKeluar extends Component
             'penerima' => 'required|string|max:255',
             'tanggal_keluar' => 'required|date',
             'perihal' => 'required|string',
+            'idbidang' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -103,6 +106,7 @@ class DetailSuratKeluar extends Component
                 'penerima' => $this->penerima,
                 'tanggal_keluar' => $this->tanggal_keluar,
                 'perihal' => $this->perihal,
+                'bidang_id' => $this->idbidang,
             ]);
 
             foreach ($this->files as $file) {
@@ -141,7 +145,7 @@ class DetailSuratKeluar extends Component
     }
     public function getSuratKeluarProperty()
     {
-        return SuratKeluar::with(['dokuments'])
+        return SuratKeluar::with(['dokuments', 'bidang'])
             ->where('id', $this->surat)
             ->firstOrFail();
     }
@@ -151,6 +155,8 @@ class DetailSuratKeluar extends Component
         $this->penerima = $this->surat_keluar->penerima;
         $this->perihal = $this->surat_keluar->perihal;
         $this->tanggal_keluar = $this->surat_keluar->tanggal_keluar;
-        return view('livewire.dokument.detail-surat-keluar', ['suratkeluar' => $this->surat_keluar]);
+        $this->idbidang = $this->surat_keluar->bidang_id;
+        $bidang = Bidang::where('name', '<>', 'Kepala Dinas')->get();
+        return view('livewire.dokument.detail-surat-keluar', ['suratkeluar' => $this->surat_keluar, 'bidangs' => $bidang]);
     }
 }

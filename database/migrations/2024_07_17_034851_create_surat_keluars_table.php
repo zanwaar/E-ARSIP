@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('penerima');
             $table->date('tanggal_keluar');
             $table->text('perihal');
+            $table->foreignId('bidang_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

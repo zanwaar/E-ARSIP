@@ -76,18 +76,18 @@ class JabatanSeeder extends Seeder
             ]);
         }
 
-        // Create surat keluar
+        // Create surat keluar Kepegawaian 2 keuangan 3
         $suratKeluars = [
-            ['nomor_surat' => '013/SK/2024', 'penerima' => 'Company L', 'tanggal_keluar' => '2024-07-09', 'perihal' => 'Konfirmasi Pesanan'],
-            ['nomor_surat' => '012/SK/2024', 'penerima' => 'Company K', 'tanggal_keluar' => '2024-07-09', 'perihal' => 'Penawaran Jasa'],
-            ['nomor_surat' => '011/SK/2024', 'penerima' => 'Company J', 'tanggal_keluar' => '2024-07-08', 'perihal' => 'Pemberitahuan'],
-            ['nomor_surat' => '010/SK/2024', 'penerima' => 'Company I', 'tanggal_keluar' => '2024-07-08', 'perihal' => 'Konfirmasi Pembayaran'],
-            ['nomor_surat' => '009/SK/2024', 'penerima' => 'Company H', 'tanggal_keluar' => '2024-07-07', 'perihal' => 'Pengiriman Dokumen'],
-            ['nomor_surat' => '008/SK/2024', 'penerima' => 'Company G', 'tanggal_keluar' => '2024-07-07', 'perihal' => 'Undangan Rapat'],
-            ['nomor_surat' => '007/SK/2024', 'penerima' => 'Company F', 'tanggal_keluar' => '2024-07-06', 'perihal' => 'Pemberitahuan Acara'],
-            ['nomor_surat' => '006/SK/2024', 'penerima' => 'Company E', 'tanggal_keluar' => '2024-07-06', 'perihal' => 'Konfirmasi Pengiriman'],
-            ['nomor_surat' => '005/SK/2024', 'penerima' => 'Company D', 'tanggal_keluar' => '2024-07-05', 'perihal' => 'Permohonan Kerjasama'],
-            ['nomor_surat' => '004/SK/2024', 'penerima' => 'Company C', 'tanggal_keluar' => '2024-07-05', 'perihal' => 'Pemberitahuan'],
+            ['bidang_id' => 2, 'nomor_surat' => '013/SK/2024', 'penerima' => 'Company L', 'tanggal_keluar' => '2024-07-09', 'perihal' => 'Konfirmasi Pesanan'],
+            ['bidang_id' => 2, 'nomor_surat' => '012/SK/2024', 'penerima' => 'Company K', 'tanggal_keluar' => '2024-07-09', 'perihal' => 'Penawaran Jasa'],
+            ['bidang_id' => 2, 'nomor_surat' => '011/SK/2024', 'penerima' => 'Company J', 'tanggal_keluar' => '2024-07-08', 'perihal' => 'Pemberitahuan'],
+            ['bidang_id' => 2, 'nomor_surat' => '010/SK/2024', 'penerima' => 'Company I', 'tanggal_keluar' => '2024-07-08', 'perihal' => 'Konfirmasi Pembayaran'],
+            ['bidang_id' => 2, 'nomor_surat' => '009/SK/2024', 'penerima' => 'Company H', 'tanggal_keluar' => '2024-07-07', 'perihal' => 'Pengiriman Dokumen'],
+            ['bidang_id' => 3, 'nomor_surat' => '008/SK/2024', 'penerima' => 'Company G', 'tanggal_keluar' => '2024-07-07', 'perihal' => 'Undangan Rapat'],
+            ['bidang_id' => 3, 'nomor_surat' => '007/SK/2024', 'penerima' => 'Company F', 'tanggal_keluar' => '2024-07-06', 'perihal' => 'Pemberitahuan Acara'],
+            ['bidang_id' => 3, 'nomor_surat' => '006/SK/2024', 'penerima' => 'Company E', 'tanggal_keluar' => '2024-07-06', 'perihal' => 'Konfirmasi Pengiriman'],
+            ['bidang_id' => 3, 'nomor_surat' => '005/SK/2024', 'penerima' => 'Company D', 'tanggal_keluar' => '2024-07-05', 'perihal' => 'Permohonan Kerjasama'],
+            ['bidang_id' => 3, 'nomor_surat' => '004/SK/2024', 'penerima' => 'Company C', 'tanggal_keluar' => '2024-07-05', 'perihal' => 'Pemberitahuan'],
         ];
 
         // Offset untuk ID yang dimulai dari 11
@@ -166,7 +166,7 @@ class JabatanSeeder extends Seeder
             ]);
         }
 
-        // Create disposisi kasi ke staff Kepegawaian id 6
+        // Create disposisi kasi ke staff Kepegawaian  id 6
         for ($i = 1; $i <= 5; $i++) {
             Disposisi::create([
                 'surat_masuk_id' => $i,

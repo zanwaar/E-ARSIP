@@ -33,16 +33,12 @@ class FileDokument extends Model
         return $this->created_at->isoFormat('dddd, D MMMM YYYY, HH:mm:ss');
     }
 
-    public function bidang()
+    public function suratkeluar()
     {
-        return $this->belongsTo(Bidang::class);
-    }
-    // public function suratmasuk()
-    // {
 
-    //     return $this->belongsTo(SuratMasuk::class, 'dokument_id', 'id')
-    //         ->where('dokument', self::MASUK);
-    // }
+        return $this->belongsTo(SuratKeluar::class, 'dokument_id', 'id')
+            ->where('dokument', self::KELUAR);
+    }
     public function disposisi()
     {
         return $this->hasMany(Disposisi::class, 'surat_masuk_id', 'dokument_id');

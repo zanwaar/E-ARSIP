@@ -18,3 +18,5 @@
 -   `php artisan storage:link`
 -   `php artisan migrate:fresh --seed`
 -   You can now log in with user "admin@gmail.com", password "password"
+
+DELETE FROM `file_dokuments` WHERE dokument = 'DOKUMENT'

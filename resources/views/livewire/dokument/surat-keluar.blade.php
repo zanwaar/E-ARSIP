@@ -7,7 +7,7 @@
                 <!-- Button trigger modal -->
 
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="card mb-3">
@@ -35,6 +35,7 @@
                     <tr>
                         <th>Nomor Surat</th>
                         <th>Penerima</th>
+                        <th>Di Keluarkan</th>
                         <th>Tanggal Keluar</th>
                         <th>Perihal</th>
                         <th class="text-center">Detail</th>
@@ -45,6 +46,7 @@
                     <tr>
                         <td>{{ $suratKeluar->nomor_surat }}</td>
                         <td>{{ $suratKeluar->penerima }}</td>
+                        <td>{{ $suratKeluar->bidang->name }}</td>
                         <td>{{ $suratKeluar->tanggal_keluar }}</td>
                         <td>{{ $suratKeluar->perihal }}</td>
                         <td class="text-center">
@@ -69,6 +71,21 @@
                             <label for="nomor_surat" class="form-label">Nomor Surat</label>
                             <input type="text" id="nomor_surat" class="form-control" readonly value="{{$nomorSurat}}" />
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="defaultSelect" class="form-label">Dikeluarkan</label>
+                        <select id="defaultSelect" class="form-select @error('idbidang') is-invalid @enderror" id="validationServerUsername" wire:model="idbidang">
+                            <option>select bidang</option>
+                            @foreach ($bidangs as $bidang)
+                            <option value="{{$bidang->id}}">{{$bidang->name}}</option>
+
+                            @endforeach
+                        </select>
+                        @error('idbidang')
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">

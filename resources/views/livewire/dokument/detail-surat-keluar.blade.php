@@ -16,6 +16,13 @@
     </div>
     <div class="card">
         <div class="card-body">
+            <div class="card-title d-flex ">
+                <div class="mx-2  text-black">
+                    <span class=" text-secondary">Di Keluarkan Pada :</span>
+                    {{$suratkeluar->bidang->name}}
+                </div>
+            </div>
+            <hr>
             <div class="d-flex justify-content-between ">
                 <div class="card-title d-flex flex-row">
                     <div class="d-inline-block mx-2  text-black">
@@ -145,6 +152,21 @@
                             <label for="nomor_surat" class="form-label">Nomor Surat</label>
                             <input type="text" id="nomor_surat" class="form-control" readonly value="{{$nomorSurat}}" />
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="defaultSelect" class="form-label">Dikeluarkan</label>
+                        <select id="defaultSelect" class="form-select @error('idbidang') is-invalid @enderror" id="validationServerUsername" wire:model="idbidang">
+                            <option>select bidang</option>
+                            @foreach ($bidangs as $bidang)
+                            <option value="{{$bidang->id}}">{{$bidang->name}}</option>
+
+                            @endforeach
+                        </select>
+                        @error('idbidang')
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
